@@ -19,7 +19,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import App from "App";
-
+import Zitadel from "ldap_providers/zitadel";
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
 
@@ -30,6 +30,7 @@ const client = new ApolloClient({
 });
 ReactDOM.render(
   <ApolloProvider client={client}>
+    {process.env.REACT_APP_PROVIDER_ZITADEL === "true" ? <Zitadel /> : null}
     <BrowserRouter>
       <MaterialUIControllerProvider>
         <App />
