@@ -12,7 +12,7 @@ const oidcConfig = {
     authority: "https:/[your-domain]-[random-string].zitadel.cloud", // replace with your instance
     clientId: "YOUR-CLIENT-ID",
     responseType: "code",
-    redirectUri: "http://localhost:3000/",
+    redirectUri: process.env.REACT_APP_ZITADEL_REDIRECT_URL,
     scope: "openid profile email",
     dev: process.env.REACT_APP_DEV_MODE
   };

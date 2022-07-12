@@ -99,6 +99,7 @@ const Article = ({ArticleData}) => {
   if (loading || loadingUpdate) {
     return <p>Loading Graphql data...</p>
   }
+  console.log(data);
   // eslint-disable-next-line no-return-assign
   if (error || errorUpdate) return `Submission error! ${error.message}`;
     return(
