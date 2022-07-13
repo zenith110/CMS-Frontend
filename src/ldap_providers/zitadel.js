@@ -10,7 +10,7 @@ const oidcConfig = {
       window.location.hash = "";
     },
     authority: "https:/[your-domain]-[random-string].zitadel.cloud", // replace with your instance
-    clientId: "YOUR-CLIENT-ID",
+    clientId: process.env.REACT_APP_ZITADEL_CLIENTID,
     responseType: "code",
     redirectUri: process.env.REACT_APP_ZITADEL_REDIRECT_URL,
     scope: "openid profile email",
