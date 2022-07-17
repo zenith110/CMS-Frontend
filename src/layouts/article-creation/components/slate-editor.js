@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { createEditor } from "slate";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FormatBold } from "@mui/icons-material";
+import { FormatBold, FormatItalic, FormatUnderlined, FormatAlignCenter, FormatAlignLeft, FormatAlignRight} from "@mui/icons-material";
 // Import the Slate components and React plugin.
 import { Slate, Editable, withReact } from "slate-react";
+import "./slate-editor.css";
 
 function SlateEditor(value) {
   // Create a Slate editor object that won't change across renders.
@@ -13,9 +14,30 @@ function SlateEditor(value) {
   return (
     <>
     <br/>
+    <div className="editor-shortcuts">
     <IconButton aria-label="format-bold">
       <FormatBold />
     </IconButton>
+    <IconButton aria-label="format-italic">
+      <FormatItalic />
+    </IconButton>
+    <IconButton aria-label="format-underline">
+      <FormatUnderlined />
+    </IconButton>
+    <IconButton aria-label="vertical-align-center">
+      <FormatAlignLeft />
+    </IconButton>
+    <IconButton aria-label="vertical-align-center">
+      <FormatAlignCenter />
+    </IconButton>
+    <IconButton aria-label="vertical-align-center">
+      <FormatAlignRight />
+    </IconButton>
+    <IconButton aria-label="delete">
+      <DeleteIcon />
+    </IconButton>
+    </div>
+    <div>
     <Slate editor={editor} value={value.value} onChange={(newValue) => value.setValue(newValue)}>
       <Editable
         onKeyDown={(event) => {
@@ -33,6 +55,7 @@ function SlateEditor(value) {
         }}
       />
     </Slate>
+    </div>
     </>
   );
 }

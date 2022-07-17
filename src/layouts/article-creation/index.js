@@ -119,8 +119,8 @@ function CreateArticle() {
                       />
                     </label>
                     <br/>
-                    <label>Title Card:</label>
-                    <br/>
+                    <label>Title Card </label>
+                    {/* <br/> */}
                     <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
                     <SlateEditor value={value} setValue={setValue} />
                      <label>
