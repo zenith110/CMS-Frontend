@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import Button from '@mui/material/Button';
 function CreateArticle() {
   const navigate = useNavigate();
   const [title, setTitleName] = useState("");
@@ -92,10 +92,10 @@ function CreateArticle() {
       <DashboardNavbar absolute isMini />
       <MDBox mt={8}>
         <MDBox mb={3}>
-          <Grid container spacing={3} alignItems="center" justifyContent="center">
+          <Grid container spacing={3} alignItems="center" justifyContent="center" >
             <Grid item xs={12} lg={8} alignItems="center" justifyContent="center">
               <Grid container spacing={3} alignItems="center" justifyContent="center">
-                <Grid item xs={12} xl={6} alignItems="center" justifyContent="center">
+                <Grid item xs={12} xl={6} alignItems="center" justifyContent="center" style={{ border: "1px solid grey" }}>
                   <div style={{textAlign: "center"}}>
                     <label>
                       <input
@@ -134,7 +134,7 @@ function CreateArticle() {
                       />
                     </label>
                     <br/>
-                    <button
+                    <Button
                       style={{ textAlign: "center" }}
                       onClick={async (e) => {
                         
@@ -176,7 +176,7 @@ function CreateArticle() {
                       }}
                     >
                       Submit Data
-                    </button>
+                    </Button>
                   </div>
                 </Grid>
               </Grid>

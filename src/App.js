@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -39,7 +39,6 @@ import themeDark from "assets/theme-dark";
 
 // RTL plugins
 import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
 import routes from "routes";

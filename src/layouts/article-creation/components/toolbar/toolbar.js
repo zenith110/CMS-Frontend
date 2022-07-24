@@ -1,40 +1,24 @@
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { FormatBold, FormatItalic, FormatUnderlined, FormatAlignCenter, FormatAlignLeft, FormatAlignRight, FormatColorText, BrowseGallery} from "@mui/icons-material";
-import CustomEditor from './toolbar-actions';
+import Bold from './toolbar-icons/bold';
+import Italic from './toolbar-icons/italic';
+import Underline from './toolbar-icons/underline';
+import LeftAlign from './toolbar-icons/left-align';
+import CenterAlign from './toolbar-icons/center-align';
+import RightAlign from './toolbar-icons/right-align';
+import ColorPicker from './toolbar-icons/colorpicker';
+import { PermMedia } from "@mui/icons-material";
 const ToolBarIcons = ({editor}) => {
     return(
         <div className="editor-shortcuts">
-        <IconButton aria-label="format-bold" onClick={(event)=> {
-            event.preventDefault();
-            CustomEditor.isBoldMarkActive(editor);
-        }}>
-        <FormatBold />
-        </IconButton>
-        <IconButton aria-label="format-italic">
-        <FormatItalic />
-        </IconButton>
-        <IconButton aria-label="format-underline">
-        <FormatUnderlined />
-        </IconButton>
-        <IconButton aria-label="vertical-align-center">
-        <FormatAlignLeft />
-        </IconButton>
-        <IconButton aria-label="vertical-align-center">
-        <FormatAlignCenter />
-        </IconButton>
-        <IconButton aria-label="vertical-align-center">
-        <FormatAlignRight />
-        </IconButton>
-        <IconButton aria-label="vertical-align-center">
-        <FormatColorText />
-        </IconButton>
-        <IconButton aria-label="vertical-align-center">
-        <BrowseGallery />
-        </IconButton>
-        <IconButton aria-label="delete">
-        <DeleteIcon />
-        </IconButton>
+        <Bold editor={editor} />
+        <Italic editor={editor} />
+        <Underline editor={editor} />
+        <LeftAlign editor={editor} />
+        <CenterAlign editor={editor} />
+        <RightAlign editor={editor} />
+        <ColorPicker editor={editor} />
+        {/* <IconButton aria-label="vertical-align-center">
+        <PermMedia />
+        </IconButton> */}
         </div>
     )
 }

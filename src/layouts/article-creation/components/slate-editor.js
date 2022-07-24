@@ -12,7 +12,7 @@ import ToolBarIcons from "./toolbar/toolbar";
 import DefaultElement from "./DefaultElement";
 import CodeElement from "./CodeElement";
 import CustomEditor from "./toolbar/toolbar-actions";
-
+import Leaf from "./leaf";
 function SlateEditor(value) {
   // Create a Slate editor object that won't change across renders.
   const [editor] = useState(() => withReact(createEditor()));
@@ -30,9 +30,9 @@ function SlateEditor(value) {
   return (
     <>
     <br/>
-    <ToolBarIcons editor={editor}/>
     <div>
     <Slate editor={editor} value={value.value} onChange={(newValue) => value.setValue(newValue)}>
+      <ToolBarIcons editor={editor}/>
       <Editable
         renderElement={renderElement}
         // Pass in the `renderLeaf` function.
@@ -41,6 +41,7 @@ function SlateEditor(value) {
           if (!event.ctrlKey) {
             return
           }
+           console.log(event.key)
            switch (event.key) {
             case "b": {
               event.preventDefault()
@@ -48,6 +49,7 @@ function SlateEditor(value) {
               break;
             }
            case "u": {
+            console.log("underline is being pressed")
             event.preventDefault();
             CustomEditor.toggleUnderlineBlock(editor);
             break;
@@ -66,32 +68,6 @@ function SlateEditor(value) {
   );
 }
 
-// Allows the change of the leaf for the text
-const Leaf = (props) => {
-  let style;
-  if(props.leaf["bold"]){
-      style = {
-        "fontWeight": "bold"
-      }
-  }
-  else if(props.leaf["underline"]){
-      style = {
-        "textDecoration": "underline"
-      }
-  }
-  else if(props.leaf["italic"]){
-    style = {
-      "fontStyle": "italic"
-    }
-  }
-  return (
-    <span
-      {...props.attributes}
-      style={style}
-    >
-      {props.children}
-    </span>
-  )
-}
+
 
 export default SlateEditor;
