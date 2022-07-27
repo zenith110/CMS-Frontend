@@ -19,6 +19,12 @@ const HTMLSerializer = (node) => {
       return `<p>${children}</p>`;
     case "link":
       return `<a href="${escapeHtml(node.url)}">${children}</a>`;
+    case "bold":
+      return `<b>${children}</b>`
+    case "italic":
+      return `<i>${children}</i>`
+    case "underline":
+      return `<u>${children}</u>`
     default:
       return children;
   }

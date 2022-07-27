@@ -37,6 +37,8 @@ function SlateEditor(value) {
         renderElement={renderElement}
         // Pass in the `renderLeaf` function.
         renderLeaf={renderLeaf}
+        spellCheck
+        autoFocus
         onKeyDown={event => {
           if (!event.ctrlKey) {
             return

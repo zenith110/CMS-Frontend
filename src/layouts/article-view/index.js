@@ -1,13 +1,9 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { gql, useQuery, useMutation} from "@apollo/client";
 import Grid from "@mui/material/Grid";
 import Article from "./components/article";
+import Button from '@mui/material/Button';
 import "./article-view.css"
 // Material Dashboard 2 React components
 import { useNavigate } from "react-router-dom"
@@ -70,8 +66,8 @@ function ArticleView(){
                         )))}
                         </Grid>
          <div className="articleOptions">
-            <button onClick={() => createArticle()}>Create Article</button>
-            <button onClick={() => deleteAllArticles()}>Delete All Articles</button>
+            <Button onClick={() => createArticle()}>Create Article</Button>
+            <Button onClick={() => deleteAllArticles()}>Delete All Articles</Button>
             
          </div>
       </DashboardLayout>
