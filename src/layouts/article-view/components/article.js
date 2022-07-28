@@ -99,7 +99,7 @@ const Article = ({ArticleData}) => {
   if (loading || loadingUpdate) {
     return <p>Loading Graphql data...</p>
   }
-  console.log(data);
+  
   // eslint-disable-next-line no-return-assign
   if (error || errorUpdate) return `Submission error! ${error.message}`;
     return(
@@ -205,7 +205,7 @@ const Article = ({ArticleData}) => {
                     },
                 })}
             }/>
-            <Button size="small" onClick={() => window.open(process.env.REACT_APP_BLOG + "/" + ArticleData.url)}>Published: {writtenDate}</Button>
+            <Button size="small" onClick={() => window.open(window._env_.BLOGURL + "/" + ArticleData.url)}>Published: {writtenDate}</Button>
             </CardActions>
       </Card>
     </div>

@@ -22,11 +22,11 @@ import App from "App";
 // import Zitadel from "ldap_providers/zitadel";
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
-
+console.log(window._env_.GRAPHQLURL)
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_URL,
+  uri: window._env_.GRAPHQLURL,
   cache: new InMemoryCache(),
-  link: createUploadLink({ uri: process.env.REACT_APP_GRAPHQL_URL })
+  link: createUploadLink({ uri: window._env_.GRAPHQLURL })
 });
 
 ReactDOM.render(
