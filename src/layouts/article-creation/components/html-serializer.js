@@ -5,9 +5,12 @@ import { Text } from "slate";
 const HTMLSerializer = (node) => {
   if (Text.isText(node)) {
     let string = escapeHtml(node.text);
-    if (node.bold) {
-      string = `<strong>${string}</strong>`;
-    }
+    if (node.bold)
+      string = `<b>${string}</b>`;
+    else if(node.underline)
+      string = `<u>${string}</u>`
+    else if(node.italic)
+      string = `<i>${string}</i>`
     return string;
   }
 

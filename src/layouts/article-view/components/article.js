@@ -36,7 +36,6 @@ const Article = ({ArticleData}) => {
   const [tags, setTags] = useState([]);
   const [titleCard, setTitleCard] = useState({})
   const articleContentParsed = new DOMParser().parseFromString(ArticleData.contentData, "text/html")
-  
   const deserializedData = HtmlDeserailizer(articleContentParsed.body)
   const articleViewQuery = gql`
     query{
@@ -148,7 +147,7 @@ const Article = ({ArticleData}) => {
               />
             </label>
             <br/>
-          <button onClick={async() => {
+          <Button onClick={async() => {
             let data = await arrayBufferCreation(titleCard)
              let tagStorage = []
               for(let tag = 0; tag < tags.length; tag++){
@@ -179,8 +178,8 @@ const Article = ({ArticleData}) => {
                     },
                 })
                 handleClose()
-          }}>Submit</button>
-          <button onClick={handleClose}>Close</button>
+          }}>Submit</Button>
+          <Button onClick={handleClose}>Close</Button>
         </Box>
       </Modal>
         <Card>

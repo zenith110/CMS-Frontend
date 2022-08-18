@@ -1,19 +1,22 @@
 /* eslint-disable default-case */
-import { jsx } from 'slate-hyperscript'
+import { jsx } from "slate-hyperscript"
 
 const HtmlDeserailizer = (el, markAttributes = {}) => {
   if (el.nodeType === Node.TEXT_NODE) {
-    return jsx('text', markAttributes, el.textContent)
+    return jsx("text", markAttributes, el.textContent)
   } else if (el.nodeType !== Node.ELEMENT_NODE) {
     return null
   }
 
   const nodeAttributes = { ...markAttributes }
-
   // define attributes for text nodes
   switch (el.nodeName) {
-    case 'strong':
+    case "bold":
       nodeAttributes.bold = true
+    case "underline":
+      nodeAttributes.underline = true 
+    case "italic":
+      nodeAttributes.italic = true
   }
 
   const children = Array.from(el.childNodes)
@@ -21,24 +24,30 @@ const HtmlDeserailizer = (el, markAttributes = {}) => {
     .flat()
 
   if (children.length === 0) {
-    children.push(jsx('text', nodeAttributes, ''))
+    children.push(jsx("text", nodeAttributes, ""))
   }
-
+  console.log(el.nodeName)
   switch (el.nodeName) {
-    case 'BODY':
-      return jsx('fragment', {}, children)
-    case 'BR':
-      return '\n'
-    case 'BLOCKQUOTE':
-      return jsx('element', { type: 'quote' }, children)
-    case 'P':
-      return jsx('element', { type: 'paragraph' }, children)
-    case 'A':
+    case "BODY":
+      return jsx("fragment", {}, children)
+    case "BR":
+      return "\n"
+    case "BLOCKQUOTE":
+      return jsx("element", { type: "quote" }, children)
+    case "P":
+      return jsx("element", { type: "paragraph" }, children)
+    case "A":
       return jsx(
-        'element',
-        { type: 'link', url: el.getAttribute('href') },
+        "element",
+        { type: "link", url: el.getAttribute("href") },
         children
       )
+    case "B":
+      return jsx("element", {type: "bold"}, children)
+    case "U":
+      return jsx("element", {type: "underline"}, children)
+    case "I":
+      return jsx("element", {type: "italic"}, children)
     default:
       return children
   }
