@@ -4,7 +4,9 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMutation, gql } from '@apollo/client'
+import { useNavigate } from 'react-router-dom';
 const Project = ({uuid, projectName, description}) => {
+    const navigate = useNavigate();
     const projectsQuery = gql`
     query projects($projectsInfo: GetProjectType){
         getProjects(input: $projectsInfo){
@@ -62,7 +64,9 @@ const Project = ({uuid, projectName, description}) => {
           </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">{projectName} Articles page</Button>
+            <Button size="small" onClick={() => {
+                navigate(`/projects/${uuid}`)
+            }}>{projectName} Articles page</Button>
             <Button size="small">Edit</Button>
             <Button size="small" onClick={() => deleteProjectMutation(
                 {

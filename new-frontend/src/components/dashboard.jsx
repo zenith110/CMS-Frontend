@@ -1,6 +1,6 @@
 import { useQuery, gql, useMutation } from '@apollo/client'
 import {useNavigate } from 'react-router-dom';
-import Project from "./project-view/index"
+import Project from "./projects-view/index"
 const Dashboard = () => {
     const navigate = useNavigate();
     const username = localStorage.getItem("username");
@@ -73,6 +73,7 @@ const Dashboard = () => {
                 selectedProjects
             }
         })}>Delete All Projects</button>
+        <button>Users</button>
         <button onClick={() => {
             localStorage.removeItem("JWT");
             localStorage.removeItem("username", username);
