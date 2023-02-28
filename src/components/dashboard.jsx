@@ -62,10 +62,6 @@ const Dashboard = () => {
     }
     return(
         <>
-        {data.getProjects.projects.map((project) => (
-            <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description}/>
-        ))
-        }
         <button onClick={() => navigate("/project-creation")}>Create new Project</button>
         <button onClick={() => deleteAllProjects({
             variables:
@@ -80,6 +76,10 @@ const Dashboard = () => {
             localStorage.removeItem("password", password)
             navigate("/")
         }}>Log out</button>
+        {data.getProjects.projects.map((project) => (
+            <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description}/>
+        ))
+        }
         </>
     )
 }   

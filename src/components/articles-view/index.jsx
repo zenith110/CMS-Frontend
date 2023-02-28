@@ -1,6 +1,8 @@
 import { useQuery, gql, useMutation} from '@apollo/client'
 import { useParams } from 'react-router-dom';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Article from './components/article';
 const ArticlesView = ({}) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
@@ -58,7 +60,7 @@ const ArticlesView = ({}) => {
     return(
         <>
         {data.articlesPrivate.article.map((article) => (
-            <p key={article.uuid}>test</p>    
+            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid}/> 
         ))}
         <button onClick={() => {
             navigate(`/projects/${uuid}/article-creation`)
@@ -70,6 +72,9 @@ const ArticlesView = ({}) => {
                 }
             })
         }}>Delete All Articles</button>
+        <button onClick={() => {
+            navigate(-1);
+        }}>Go Back</button>
         </>
     )
 }

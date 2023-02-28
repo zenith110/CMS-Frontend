@@ -128,9 +128,6 @@ const ArticleCreation = () => {
             Creates an arraybuffer that we can convert to a binarystring to pass to S3
             */
             let data = await arrayBufferCreation(titleCard);
-            console.log(titleCard)
-            console.log(content)
-            console.log(uuid)
             let newArticleData = {  
                 title: title,
                 // titleCard: titleCard,
