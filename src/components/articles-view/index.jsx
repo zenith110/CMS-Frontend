@@ -1,8 +1,8 @@
-import { useQuery, gql, useMutation} from '@apollo/client'
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Article from './components/article';
+import { useQuery, gql, useMutation} from "@apollo/client"
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./article.css"
+import Article from "./components/article";
 const ArticlesView = ({}) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
@@ -59,9 +59,6 @@ const ArticlesView = ({}) => {
     if (error) return `Submission error! ${error.message}`;
     return(
         <>
-        {data.articlesPrivate.article.map((article) => (
-            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid}/> 
-        ))}
         <button onClick={() => {
             navigate(`/projects/${uuid}/article-creation`)
         }}>Create Article</button>
@@ -75,6 +72,12 @@ const ArticlesView = ({}) => {
         <button onClick={() => {
             navigate(-1);
         }}>Go Back</button>
+
+        {data.articlesPrivate.article.map((article) => (
+            <div className="article">
+            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description}/>
+            </div>
+        ))}
         </>
     )
 }

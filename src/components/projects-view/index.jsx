@@ -66,7 +66,7 @@ const Project = ({uuid, projectName, description}) => {
         <CardActions>
             <Button size="small" onClick={() => {
                 navigate(`/projects/${uuid}`)
-            }}>{projectName} Articles page</Button>
+            }}>Articles page</Button>
             <Button size="small">Edit</Button>
             <Button size="small" onClick={() => deleteProjectMutation(
                 {

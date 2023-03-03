@@ -1,8 +1,12 @@
 import { gql, useMutation} from '@apollo/client'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-const Article = ({articleUuid, articleName}) => {
+import Typography from '@mui/material/Typography';
+const Article = ({articleUuid, articleName, articleDescription}) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
     const articlesQuery = gql`
@@ -45,16 +49,29 @@ const Article = ({articleUuid, articleName}) => {
     });
     return(
         <>
-        <p>{articleName}</p>
-        <button onClick={() => {
-            deleteArticles({
-                variables: {
-                    deleteArticleInput
-                }
-            })
-        }}>Delete Article</button>
-        <button>View Article</button>
-        <button>Update Article</button>
+        <Card sx={{ minWidth: 275 }} key={uuid}>
+        <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+            {articleName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+              {articleDescription}
+          </Typography>
+        </CardContent>
+        <CardActions>
+            <Button onClick={() => {
+                deleteArticles({
+                    variables: {
+                        deleteArticleInput
+                    }
+                })
+            }}>Delete Article</Button>
+            <Button size="small" onClick={() => {
+                navigate(`/projects/${uuid}/articles/${articleUuid}`)
+            }}>View Article</Button>
+            <Button size="small">Update Article</Button>
+        </CardActions>
+        </Card>
         </>
     )
 }
