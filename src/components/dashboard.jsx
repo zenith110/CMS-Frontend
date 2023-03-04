@@ -41,8 +41,7 @@ const Dashboard = () => {
         variables: {
             projectsInfo
         },
-        fetchPolicy: "no-cache",
-        notifyOnNetworkStatusChange: true,
+        notifyOnNetworkStatusChange: true
     });
     const deleteProjectsQuery = gql`
             mutation DeleteAllProjects($selectedProjects: DeleteAllProjects){
@@ -56,7 +55,7 @@ const Dashboard = () => {
     });
     if (loading) return <p>Loading Graphql data...</p>
     
-    if (error) return `Submission error! ${error.message}`;
+    if (error) return `Submission error! User is not authenticated!`;
     const selectedProjects = {
         username, 
         jwt
@@ -77,7 +76,7 @@ const Dashboard = () => {
             navigate("/")
         }}>Log out</button>
         {data.getProjects.projects.map((project) => (
-            <div className="project">
+            <div className="project" key={project.uuid}>
                 <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description}/>
             </div>
         ))

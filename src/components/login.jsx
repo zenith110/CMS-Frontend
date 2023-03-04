@@ -10,16 +10,25 @@ const Login = () => {
         loginUser(username: $username, password: $password)
     }
   `
-  const [login, { data, loading, error }] = useMutation(loginClient);
+  const [login, {loading, error }] = useMutation(loginClient, {
+    onCompleted: (data) => {
+          localStorage.setItem("JWT", data.loginUser);
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password)
+          navigate('/dashboard');
+    }
+  });
   if (loading) return 'Submitting...';
 
   if (error) return `Submission error! ${error.message}`;
   return (
     <div>
-      <label>Username</label>
+      <label>Username: </label>
       <input onChange={(e) => setUsername(e.target.value)} type="text"/>
-      <label>Password</label>
+      <br/>
+      <label>Password:  </label>
       <input onChange={(e) => setPassword(e.target.value)} type="password"/>
+      <br/>
       <button onClick={() => {
         login({
           variables:
@@ -28,10 +37,6 @@ const Login = () => {
             password
           }
           })
-          localStorage.setItem("JWT", data.loginUser);
-          localStorage.setItem("username", username);
-          localStorage.setItem("password", password)
-          navigate('/dashboard');
       }}>Login</button>
     </div>
   )
