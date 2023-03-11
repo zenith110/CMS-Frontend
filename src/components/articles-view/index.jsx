@@ -23,13 +23,9 @@ const ArticlesView = ({}) => {
         }
     }
     `
-    const username = localStorage.getItem("username")
     const jwt = localStorage.getItem("JWT")
-    const password = localStorage.getItem("password")
     let articlesInput = {
         jwt,
-        username, 
-        password,
         project_uuid: uuid
     }
     const DeleteArticlesQuery = gql`
@@ -39,9 +35,7 @@ const ArticlesView = ({}) => {
     `
     let deleteAllArticlesInput = {
         jwt,
-        project_uuid: uuid,
-        username,
-        password
+        project_uuid: uuid
     }
     const { data, loading, error} = useQuery(articlesQuery, {
         variables: {
@@ -62,19 +56,19 @@ const ArticlesView = ({}) => {
         <button onClick={() => {
             navigate(`/projects/${uuid}/article-creation`)
         }}>Create Article</button>
-        <button onClick={() => {
+        {data.articlesPrivate.article.length > 0 ?< button onClick={() => {
             deleAllArticles({
                 variables:{
                     deleteAllArticlesInput
                 }
             })
-        }}>Delete All Articles</button>
+        }}>Delete All Articles</button> : <></>}
         <button onClick={() => {
             navigate(-1);
         }}>Go Back</button>
 
         {data.articlesPrivate.article.map((article) => (
-            <div className="article">
+            <div className="article" key={article.uuid}>
             <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description}/>
             </div>
         ))}

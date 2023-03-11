@@ -15,18 +15,9 @@ import ArticlesView from './components/articles-view'
 import ArticleCreation from './components/articles-view/article-creation'
 import ArticleView from './components/article-view'
 import { createUploadLink } from 'apollo-upload-client';
-// import SuperTokensRequest from 'supertokens-website';
-
-// // interception is on by default
-// SuperTokensRequest.init({
-//     refreshTokenUrl: "/refresh"
-// });
 
 const client = new ApolloClient({
   uri: import.meta.env.VITE_GRAPHQLURL,
-  // link: new HttpLink({
-  //   uri: "/graphql",  // change this depending on your path
-  // }),
   link: createUploadLink({ uri: import.meta.env.VITE_GRAPHQLURL}),
   cache: new InMemoryCache()
 });

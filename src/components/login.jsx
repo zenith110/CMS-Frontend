@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMutation, gql } from '@apollo/client'
 import {useNavigate} from 'react-router-dom';
+import "./login.css"
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -13,8 +14,6 @@ const Login = () => {
   const [login, {loading, error }] = useMutation(loginClient, {
     onCompleted: (data) => {
           localStorage.setItem("JWT", data.loginUser);
-          localStorage.setItem("username", username);
-          localStorage.setItem("password", password)
           navigate('/dashboard');
     }
   });
@@ -22,12 +21,13 @@ const Login = () => {
 
   if (error) return `Submission error! ${error.message}`;
   return (
-    <div>
-      <label>Username: </label>
+    <div className='loginField'>
+      <label className='textLabel'>Username: </label>
       <input onChange={(e) => setUsername(e.target.value)} type="text"/>
       <br/>
-      <label>Password:  </label>
+      <label className='textLabel'>Password:  </label>
       <input onChange={(e) => setPassword(e.target.value)} type="password"/>
+      <br/>
       <br/>
       <button onClick={() => {
         login({

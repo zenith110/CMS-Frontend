@@ -96,9 +96,7 @@ const ArticleCreation = () => {
         </label>
         <br/>
         <label>Title Card </label>
-        {/* <br/> */}
         <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
-        {/* <SlateEditor value={value} setValue={setValue} /> */}
         <br/>
         <label>
         <input
@@ -114,6 +112,7 @@ const ArticleCreation = () => {
         <textarea id="w3review" name="w3review" rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content}>
         
         </textarea>
+        <ReactMarkdown children={content}/>
         <br/>
         <Button
         style={{ textAlign: "center" }}
@@ -160,8 +159,6 @@ const ArticleCreation = () => {
         >
         Submit Data
         </Button>
-        <br/>
-        <ReactMarkdown children={content}/>
         <br/>
         <Button onClick={() => navigate(-1)}>Back</Button>
     </div>)            

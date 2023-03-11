@@ -17,12 +17,11 @@ const ArticleView = () => {
         }
     }
     `
-    const username = localStorage.getItem("username")
+    
     const jwt = localStorage.getItem("JWT")
     const articleInput = {
         project_uuid: uuid,
         uuid: articleuuid,
-        username,
         jwt
     }
     const { data, loading, error} = useQuery(articleQuery, {

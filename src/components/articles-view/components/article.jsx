@@ -31,13 +31,9 @@ const Article = ({articleUuid, articleName, articleDescription}) => {
         deleteArticle(input: $deleteArticleInput)
     }
     `
-    const username = localStorage.getItem("username")
     const jwt = localStorage.getItem("JWT")
-    const password = localStorage.getItem("password")
     let deleteArticleInput = {
         uuid: articleUuid,
-        username,
-        password,
         jwt,
         project_uuid: uuid,
         articlename: articleName

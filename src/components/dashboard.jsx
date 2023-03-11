@@ -4,8 +4,6 @@ import Project from "./projects-view/index"
 import "./dashboard.css"
 const Dashboard = () => {
     const navigate = useNavigate();
-    const username = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
     const jwt = localStorage.getItem("JWT");
     const projectsQuery = gql`
         query projects($projectsInfo: GetProjectType){
@@ -32,9 +30,7 @@ const Dashboard = () => {
             }
         }`;
     let projectsInfo = {
-        jwt: jwt,
-        username: username,
-        password: password
+        jwt
     }
 
     const { data, loading, error} = useQuery(projectsQuery, {
@@ -53,26 +49,34 @@ const Dashboard = () => {
             projectsQuery
         ]
     });
+    const LogoutQuery =  gql`
+    mutation Logout($jwt: String!){
+        logout(jwt: $jwt)
+    }
+    `;
+    const [Logout] = useMutation(LogoutQuery);
     if (loading) return <p>Loading Graphql data...</p>
     
     if (error) return `Submission error! User is not authenticated!`;
     const selectedProjects = {
-        username, 
         jwt
     }
     return(
         <>
         <button onClick={() => navigate("/project-creation")}>Create new Project</button>
-        <button onClick={() => deleteAllProjects({
+        {data.getProjects.projects.length > 0 ? <button onClick={() => deleteAllProjects({
             variables:
             {
                 selectedProjects
             }
-        })}>Delete All Projects</button>
+        })}>Delete All Projects</button> : <></>}
         <button onClick={() => {
+            Logout({
+                variables: {
+                    jwt
+                }
+            })
             localStorage.removeItem("JWT");
-            localStorage.removeItem("username", username);
-            localStorage.removeItem("password", password)
             navigate("/")
         }}>Log out</button>
         {data.getProjects.projects.map((project) => (

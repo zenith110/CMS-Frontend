@@ -4,7 +4,6 @@ import './App.css'
 const App = () => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("JWT");
-  console.log(`jwt is ${jwt}`)
   const LoginRedirect = () => {
     navigate("/login")
   }

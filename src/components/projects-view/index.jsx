@@ -37,7 +37,6 @@ const Project = ({uuid, projectName, description}) => {
     }
     `
     
-    const username = localStorage.getItem("username")
     const jwt = localStorage.getItem("JWT")
     
     // When a project is deleted, refresh the projects query
@@ -48,7 +47,6 @@ const Project = ({uuid, projectName, description}) => {
     });
     const deleteProject = {
         jwt,
-        username,
         uuid,
         project: projectName
     }

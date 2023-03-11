@@ -1,0 +1,11 @@
+.loginField{
+    border-radius: 25px;
+    background: #FDDC5C;
+    padding: 20px;
+    width: 250px;
+    height: 150px; 
+}
+
+.textLabel{
+    color: black;
+}
