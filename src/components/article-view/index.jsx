@@ -18,7 +18,7 @@ const ArticleView = () => {
     }
     `
     
-    const jwt = localStorage.getItem("JWT")
+    const jwt = sessionStorage.getItem("JWT")
     const articleInput = {
         project_uuid: uuid,
         uuid: articleuuid,

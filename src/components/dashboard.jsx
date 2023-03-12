@@ -4,7 +4,8 @@ import Project from "./projects-view/index"
 import "./dashboard.css"
 const Dashboard = () => {
     const navigate = useNavigate();
-    const jwt = localStorage.getItem("JWT");
+    const jwt = sessionStorage.getItem("JWT");
+    const role = sessionStorage.getItem("role");
     const projectsQuery = gql`
         query projects($projectsInfo: GetProjectType){
             getProjects(input: $projectsInfo){
@@ -13,6 +14,7 @@ const Dashboard = () => {
                     name
                     author
                     description
+                    encryptionKey
                     articles{
                         article{
                             title
@@ -64,7 +66,7 @@ const Dashboard = () => {
     return(
         <>
         <button onClick={() => navigate("/project-creation")}>Create new Project</button>
-        {data.getProjects.projects.length > 0 ? <button onClick={() => deleteAllProjects({
+        {data.getProjects.projects.length > 0 && role == "Admin" ? <button onClick={() => deleteAllProjects({
             variables:
             {
                 selectedProjects
@@ -76,12 +78,12 @@ const Dashboard = () => {
                     jwt
                 }
             })
-            localStorage.removeItem("JWT");
+            sessionStorage.clear()
             navigate("/")
         }}>Log out</button>
         {data.getProjects.projects.map((project) => (
             <div className="project" key={project.uuid}>
-                <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description}/>
+                <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description} encryptionKey={project.encryptionKey}/>
             </div>
         ))
         }

@@ -23,7 +23,7 @@ const ArticlesView = ({}) => {
         }
     }
     `
-    const jwt = localStorage.getItem("JWT")
+    const jwt = sessionStorage.getItem("JWT")
     let articlesInput = {
         jwt,
         project_uuid: uuid
@@ -69,7 +69,7 @@ const ArticlesView = ({}) => {
 
         {data.articlesPrivate.article.map((article) => (
             <div className="article" key={article.uuid}>
-            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description}/>
+            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description} author={article.author.name}/>
             </div>
         ))}
         </>

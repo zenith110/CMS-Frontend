@@ -3,7 +3,7 @@ import {useNavigate, Navigate} from 'react-router-dom';
 import './App.css'
 const App = () => {
   const navigate = useNavigate();
-  const jwt = localStorage.getItem("JWT");
+  const jwt = sessionStorage.getItem("JWT");
   const LoginRedirect = () => {
     navigate("/login")
   }

@@ -6,8 +6,7 @@ import "./index.css"
 const ProjectCreation = () => {
     const navigate = useNavigate();
     const [projectName, setProjectName] = useState("");
-    const [projectDescription, setProjectDescription] = useState("")
-   
+    const [projectDescription, setProjectDescription] = useState("");
     const createProject = gql`
     mutation($createProjectInput: CreateProjectInput){
         createProject(input: $createProjectInput){
@@ -16,7 +15,7 @@ const ProjectCreation = () => {
     }
     `
     
-    const jwt = localStorage.getItem("JWT")
+    const jwt = sessionStorage.getItem("JWT")
 
     // When a project is created, refresh the projects query
     const [createProjectMutation] = useMutation(createProject, {

@@ -7,9 +7,7 @@ import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
 const ArticleCreation = () => {
     const { uuid } = useParams();
-    const username = localStorage.getItem("username")
-    const jwt = localStorage.getItem("JWT")
-    const password = localStorage.getItem("password")
+    const jwt = sessionStorage.getItem("JWT")
     const navigate = useNavigate();
     const [title, setTitleName] = useState("");
     const [description, setDescription] = useState("");
@@ -130,7 +128,6 @@ const ArticleCreation = () => {
             let newArticleData = {  
                 title: title,
                 // titleCard: titleCard,
-                author: username,
                 titleCard: {
                     name: titleCard.name,
                     fileData: new File([data], titleCard.name, {
@@ -144,8 +141,6 @@ const ArticleCreation = () => {
                 description: description,
                 uuid: uuidv4(),
                 tags: tagStorage,
-                username,
-                password,
                 project_uuid: uuid,
                 jwt
                 }

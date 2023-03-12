@@ -8,13 +8,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const loginClient = gql`
     mutation login($username: String!, $password: String!){
-        loginUser(username: $username, password: $password)
+        loginUser(username: $username, password: $password){
+          jwt
+          role
+        }
     }
   `
   const [login, {loading, error }] = useMutation(loginClient, {
     onCompleted: (data) => {
-          localStorage.setItem("JWT", data.loginUser);
-          navigate('/dashboard');
+          var role = data.loginUser.role
+          if(role == "Reader"){
+
+          }
+          else if(role == "Admin" || role == "Writer"){
+            sessionStorage.setItem("JWT", data.loginUser.jwt);
+            sessionStorage.setItem("role", data.loginUser.role);
+            sessionStorage.setItem("username", data.loginUser.username);
+            navigate('/dashboard');
+          }
     }
   });
   if (loading) return 'Submitting...';

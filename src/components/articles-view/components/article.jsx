@@ -6,7 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-const Article = ({articleUuid, articleName, articleDescription}) => {
+const Article = ({articleUuid, articleName, articleDescription, author}) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
     const articlesQuery = gql`
@@ -31,12 +31,15 @@ const Article = ({articleUuid, articleName, articleDescription}) => {
         deleteArticle(input: $deleteArticleInput)
     }
     `
-    const jwt = localStorage.getItem("JWT")
+    const jwt = sessionStorage.getItem("JWT");
+    const role = sessionStorage.getItem("role");
+
     let deleteArticleInput = {
         uuid: articleUuid,
         jwt,
         project_uuid: uuid,
-        articlename: articleName
+        articlename: articleName,
+        username: author
     }
     const [deleteArticles] = useMutation(DeleteArticleQuery, {
         refetchQueries: [
@@ -55,13 +58,13 @@ const Article = ({articleUuid, articleName, articleDescription}) => {
           </Typography>
         </CardContent>
         <CardActions>
-            <Button onClick={() => {
+            {role == "Admin" || username == author ? <Button onClick={() => {
                 deleteArticles({
                     variables: {
                         deleteArticleInput
                     }
                 })
-            }}>Delete Article</Button>
+            }}>Delete Article</Button> : <></>}
             <Button size="small" onClick={() => {
                 navigate(`/projects/${uuid}/articles/${articleUuid}`)
             }}>View Article</Button>
