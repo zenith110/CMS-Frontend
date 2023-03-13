@@ -19,6 +19,9 @@ const ArticlesView = ({}) => {
                 url
                 uuid
                 description
+                tags{
+                    tag
+                }
                 }
         }
     }
@@ -69,7 +72,7 @@ const ArticlesView = ({}) => {
 
         {data.articlesPrivate.article.map((article) => (
             <div className="article" key={article.uuid}>
-            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description} author={article.author.name}/>
+            <Article articleUuid={article.uuid} articleName={article.title} key={article.uuid} articleDescription={article.description} author={article.author.name} ArticleData={article}/>
             </div>
         ))}
         </>

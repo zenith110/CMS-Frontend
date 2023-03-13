@@ -34,6 +34,8 @@ const ArticleView = () => {
     if (loading) return <p>Loading Graphql data...</p>
     
     if (error) return `Submission error! ${error.message}`;
+    var isoDateTime = new Date(data.articlePrivate.dateWritten);
+    var localDateTime = isoDateTime.toLocaleDateString();
     return(
         <>
         <label>Article Title: </label><p>{data.articlePrivate.title}</p>
@@ -46,7 +48,7 @@ const ArticleView = () => {
         <br/>
         <ReactMarkdown children={data.articlePrivate.contentData}/>
         <br/>
-        <label>Date Written: </label><p>{data.articlePrivate.dateWritten}</p>
+        <label>Date Written: </label><p>{localDateTime}</p>
         <br/>
         <label>Description: </label><p>{data.articlePrivate.description}</p>
         <br/>

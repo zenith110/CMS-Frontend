@@ -14,6 +14,7 @@ import {
 import ArticlesView from './components/articles-view'
 import ArticleCreation from './components/articles-view/article-creation'
 import ArticleView from './components/article-view'
+import EditArticle from './components/article-edit'
 import { createUploadLink } from 'apollo-upload-client';
 
 const client = new ApolloClient({
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/projects/:uuid" element={<ArticlesView/>}/>
           <Route path="/projects/:uuid/article-creation" element={<ArticleCreation/>}/>
           <Route path="/projects/:uuid/articles/:articleuuid" element={<ArticleView/>}/>
+          <Route path="/projects/:uuid/articles/:articleuuid/edit" element={<EditArticle/>}/>
         </Routes>
       </ApolloProvider>
     </BrowserRouter>
