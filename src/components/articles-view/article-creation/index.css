@@ -1,0 +1,20 @@
+.articlecreation{
+    border-radius: 25px;
+    background: #FDDC5C;
+    padding: 20px;
+    width: 300px;
+    height: 250px; 
+    text-align: center;
+}
+
+.textLabel{
+    color: black;
+}
+
+.backbutton{
+    margin-top: 5px;
+}
+
+.submitbutton{
+    margin-top: 5px;
+}
