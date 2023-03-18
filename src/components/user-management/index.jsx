@@ -31,7 +31,10 @@ const UserManagement = () => {
         notifyOnNetworkStatusChange: true
     });
     const [deleteUserMutation, {deleteUserData}] = useMutation(deleteUser, {
-        refetchQueries: ["users"]
+        refetchQueries: ["users"], 
+        onCompleted: (deleteUserData) => {
+            toast(deleteUserData.deleteUser);
+        }
     })
     if (loading) return <p>Loading Graphql data...</p>
     
@@ -75,7 +78,6 @@ const UserManagement = () => {
                         }
 
                     })
-                    toast(deleteUserData);
                 }}>Delete User</button></td> : <></>}
                 </tr>
             ))}
