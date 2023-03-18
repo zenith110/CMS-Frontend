@@ -49,6 +49,9 @@ const Login = () => {
           }
           })
       }}>Login</button>
+      <button onClick={() => {
+        navigate(-1);
+      }}>Back</button>
     </div>
   )
 }

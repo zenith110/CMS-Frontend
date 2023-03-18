@@ -16,7 +16,8 @@ import ArticleCreation from './components/articles-view/article-creation'
 import ArticleView from './components/article-view'
 import EditArticle from './components/article-edit'
 import { createUploadLink } from 'apollo-upload-client';
-
+import UserManagement from './components/user-management'
+import UserCreation from './components/user-management/user-creation'
 const client = new ApolloClient({
   uri: import.meta.env.VITE_GRAPHQLURL,
   link: createUploadLink({ uri: import.meta.env.VITE_GRAPHQLURL}),
@@ -37,6 +38,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/projects/:uuid/article-creation" element={<ArticleCreation/>}/>
           <Route path="/projects/:uuid/articles/:articleuuid" element={<ArticleView/>}/>
           <Route path="/projects/:uuid/articles/:articleuuid/edit" element={<EditArticle/>}/>
+          <Route path="/user-management" element={<UserManagement/>}/>
+          <Route path="/user-management/user-creation" element={<UserCreation/>}/>
         </Routes>
       </ApolloProvider>
     </BrowserRouter>
