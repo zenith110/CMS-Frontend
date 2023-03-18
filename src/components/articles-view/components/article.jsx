@@ -6,19 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    color: "black"
-  };
+
 const Article = ({articleUuid, articleName, articleDescription, author, ArticleData}) => {
     const { uuid } = useParams();
     const navigate = useNavigate();
@@ -29,7 +17,7 @@ const Article = ({articleUuid, articleName, articleDescription, author, ArticleD
     `
     const jwt = sessionStorage.getItem("JWT");
     const role = sessionStorage.getItem("role");
-    
+    const username = sessionStorage.getItem("username");
     const tags = []
     ArticleData.tags.map((tagData) => {
       tags.push(tagData.tag)

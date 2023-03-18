@@ -24,25 +24,7 @@ const ArticleCreation = () => {
        }
       }
     `;
-    /*
-    Query to grab all the articles
-    */
-    const articleViewQuery = gql`
-    query articles($articlesInput: ArticlesPrivate){
-        articlesPrivate(input: $articlesInput){
-            article{
-                title
-                author{
-                    name
-                }
-                contentData
-                dateWritten
-                url
-                uuid
-                description
-                }
-        }
-    }`;
+    
     /*
     Gets the file, and modifies it to be an ArrayBuffer to be used for uploading to s3
     */
@@ -113,7 +95,7 @@ const ArticleCreation = () => {
         <br/>
         <Button
         style={{ textAlign: "center" }}
-        onClick={async (e) => {
+        onClick={async () => {
             let tagStorage = []
             for(let tag = 0; tag < tags.length; tag++){
             tagStorage.push({
@@ -126,7 +108,6 @@ const ArticleCreation = () => {
             let data = await arrayBufferCreation(titleCard);
             let newArticleData = {  
                 title: title,
-                // titleCard: titleCard,
                 titleCard: {
                     name: titleCard.name,
                     fileData: new File([data], titleCard.name, {

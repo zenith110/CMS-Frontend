@@ -81,6 +81,9 @@ const Dashboard = () => {
             sessionStorage.clear()
             navigate("/")
         }}>Log out</button>
+        <button onClick={() => {
+            navigate("/user-management");
+        }}>User Management</button>
         {data.getProjects.projects.map((project) => (
             <div className="project" key={project.uuid}>
                 <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description} encryptionKey={project.encryptionKey}/>
