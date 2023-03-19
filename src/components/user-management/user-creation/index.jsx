@@ -2,6 +2,7 @@ import { useState } from "react"
 import { v4 as uuidv4 } from 'uuid';
 import { gql, useMutation} from '@apollo/client'
 import {useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown'
 const UserCreation = () => {
     const navigate = useNavigate();
     const [username, setUserName] = useState("")
@@ -11,6 +12,7 @@ const UserCreation = () => {
     const [profilePic, setProfilePic] = useState({})
     const [name, setName] = useState("")
     const jwt = sessionStorage.getItem("JWT");
+    const [content, setContent] = useState("");
     const panelRole = sessionStorage.getItem("role");
     const uuid = uuidv4()
     const createUserMutation = gql`
@@ -40,32 +42,36 @@ const UserCreation = () => {
       }
     return(
         <>
-        <label>Name</label>
+        <label>Name: </label>
         <input onChange={(e) => setName(e.target.value)}/>
         <br/>
-        <label>Username</label>
+        <label>Username: </label>
         <input onChange={(e) => setUserName(e.target.value)}/>
         <br/>
-        <label>Password</label>
+        <label>Password: </label>
         <input onChange={(e) => setPassword(e.target.value)} type="password"/>
         <br/>
-        <label>Email</label>
+        <label>Email: </label>
         <input onChange={(e) => setEmail(e.target.value)}/>
         <br/>
         <label>Role</label>
         <br/>
-        {panelRole == "Admin" ?
         <select onChange={(e) => setRole(e.target.value)}>
 
-            <option value="Admin">Admin</option>
+        {panelRole == "Admin" ? <option value="Admin">Admin</option> : <></>}
     
             <option value="Writer">Writer</option>
     
-        </select> : <></>
-        }
+        </select>
         <br/>
-        <label>Profile Picture</label>
+        <label>Profile Picture: </label>
         <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setProfilePic(e.target.files[0])} />
+        <br/>
+        <br/>
+        <label>Bio</label>
+        <br/>
+        <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content}/>
+        <ReactMarkdown children={content}/>
         <br/>
         <br/>
         <button onClick={async() => {
@@ -78,6 +84,7 @@ const UserCreation = () => {
                 jwt: jwt,
                 role: role,
                 name: name,
+                bio: content,
                 profilePic: {
                     name: profilePic.name,
                     fileData: new File([data], profilePic.name, {

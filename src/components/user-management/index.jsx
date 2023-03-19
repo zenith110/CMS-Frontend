@@ -1,5 +1,6 @@
 import {useNavigate } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import toast, { Toaster } from 'react-hot-toast';
 import "./index.css"
 const UserManagement = () => {
     const navigate = useNavigate();
@@ -18,45 +19,91 @@ const UserManagement = () => {
         }
     }
     `
+    const deleteUser = gql`
+    mutation($inputData: DeleteUser){
+        deleteUser(input: $inputData)
+    }
+    `
+    const deleteAllUsers = gql`
+    mutation($jwt: String!){
+        deleteAllUsers(jwt: $jwt)
+    }
+    `
     const { data, loading, error} = useQuery(usersQuery, {
         variables: {
             jwt
         },
         notifyOnNetworkStatusChange: true
     });
+    const [deleteUserMutation, {deleteUserData}] = useMutation(deleteUser, {
+        refetchQueries: ["users"], 
+        onCompleted: (deleteUserData) => {
+            toast(deleteUserData.deleteUser);
+        }
+    })
+
+    const [deleteUsersMutation, {deleteUsersData}] = useMutation(deleteAllUsers, {
+        refetchQueries: ["users"], 
+        onCompleted: (deleteUsersData) => {
+            toast(deleteUsersData.deleteAllUsers);
+        }
+    })
     if (loading) return <p>Loading Graphql data...</p>
     
     if (error) return `Submission error! User is not authenticated!`;
+    
     return(
         <>
+        <div><Toaster/></div>
         <button onClick={() => {
             navigate("/user-management/user-creation");
         }}>Create User</button>
-        <button>Delete Users</button>
+        <button onClick={() => {
+            deleteUsersMutation({
+                variables: {
+                    jwt: jwt
+                }
+            })
+        }}>Delete Users</button>
         <button onClick={() => {
             navigate(-1);
         }}>Back</button>
         <br/>
         <br/>
+        {data.getUsers.users.length > 0 ?
         <table>
-        <tbody>
+        <thead>
         <tr>
             <th>User Management</th>
+            <th>Edit User</th>
+            <th>Delete User</th>
         </tr>
-        <tr>
+        </thead>
+        <tbody>
             {data.getUsers.users.map((user) => (
-                <div key={user.uuid}>
+                <tr key={user.uuid}>
                 <td>{user.username}</td>
                 {role == "Admin" || username == user.username 
                 ? <td><button>Edit User</button></td> : <></>}
                 {role == "Admin" 
-                ? <td><button>Delete User</button></td> : <></>}
-                </div>
+                ? <td><button onClick={() => {
+                    let inputData = {
+                        jwt: jwt,
+                        uuid: user.uuid
+                    }
+                    deleteUserMutation({
+                        variables: {
+                            inputData
+                        }
+
+                    })
+                }}>Delete User</button></td> : <></>}
+                </tr>
             ))}
-            {data.getUsers.users.map((user) => console.log(user))} 
-        </tr>
         </tbody>
-        </table>
+        </table> : <></>
+        }
+        
         </>
     )
 }
