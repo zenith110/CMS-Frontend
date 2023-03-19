@@ -24,6 +24,11 @@ const UserManagement = () => {
         deleteUser(input: $inputData)
     }
     `
+    const deleteAllUsers = gql`
+    mutation($jwt: String!){
+        deleteAllUsers(jwt: $jwt)
+    }
+    `
     const { data, loading, error} = useQuery(usersQuery, {
         variables: {
             jwt
@@ -36,6 +41,13 @@ const UserManagement = () => {
             toast(deleteUserData.deleteUser);
         }
     })
+
+    const [deleteUsersMutation, {deleteUsersData}] = useMutation(deleteAllUsers, {
+        refetchQueries: ["users"], 
+        onCompleted: (deleteUsersData) => {
+            toast(deleteUsersData.deleteAllUsers);
+        }
+    })
     if (loading) return <p>Loading Graphql data...</p>
     
     if (error) return `Submission error! User is not authenticated!`;
@@ -46,12 +58,19 @@ const UserManagement = () => {
         <button onClick={() => {
             navigate("/user-management/user-creation");
         }}>Create User</button>
-        <button>Delete Users</button>
+        <button onClick={() => {
+            deleteUsersMutation({
+                variables: {
+                    jwt: jwt
+                }
+            })
+        }}>Delete Users</button>
         <button onClick={() => {
             navigate(-1);
         }}>Back</button>
         <br/>
         <br/>
+        {data.getUsers.users.length > 0 ?
         <table>
         <thead>
         <tr>
@@ -82,7 +101,9 @@ const UserManagement = () => {
                 </tr>
             ))}
         </tbody>
-        </table>
+        </table> : <></>
+        }
+        
         </>
     )
 }
