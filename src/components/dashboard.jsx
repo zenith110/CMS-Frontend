@@ -72,6 +72,9 @@ const Dashboard = () => {
                 selectedProjects
             }
         })}>Delete All Projects</button> : <></>}
+        {role == "Admin" ? <button onClick={() => {
+            navigate("/user-management");
+        }}>User Management</button> : <></>}
         <button onClick={() => {
             Logout({
                 variables: {
@@ -81,12 +84,9 @@ const Dashboard = () => {
             sessionStorage.clear()
             navigate("/")
         }}>Log out</button>
-        <button onClick={() => {
-            navigate("/user-management");
-        }}>User Management</button>
         {data.getProjects.projects.map((project) => (
             <div className="project" key={project.uuid}>
-                <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description} encryptionKey={project.encryptionKey}/>
+                <Project key={project.uuid} uuid={project.uuid} projectName={project.name} description={project.description}/>
             </div>
         ))
         }
