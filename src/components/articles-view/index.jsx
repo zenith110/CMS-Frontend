@@ -76,7 +76,6 @@ const ArticlesView = ({}) => {
     if (loading) return <p>Loading Graphql data...</p>
     
     if (error) return `Submission error! ${error.message}`;
-    console.log(data)
     return(
         <>
         <button onClick={() => {
