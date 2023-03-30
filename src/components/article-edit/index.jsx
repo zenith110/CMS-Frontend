@@ -1,9 +1,12 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
+import { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ArticleToBeUpdated from './article';
 const EditArticle = () => {
     const { articleuuid, uuid } = useParams();
+    const textareaRef = useRef();
     const jwt = sessionStorage.getItem("JWT")
+    const [content, setContent] = useState("");
     const fetchArticleQuery = gql`
         query($articleInput: FindArticlePrivateType){
             articlePrivate(input: $articleInput){
@@ -43,6 +46,9 @@ const EditArticle = () => {
         "articles"
       ]
     });
+
+    
+    
     let articleInput = {
         jwt,
         project_uuid: uuid,
@@ -59,7 +65,7 @@ const EditArticle = () => {
     
     return (
         <>
-        <ArticleToBeUpdated data={data} updateArticle={updateArticle} articleuuid={articleuuid} jwt={jwt} project_uuid={uuid}/>
+        <ArticleToBeUpdated data={data} updateArticle={updateArticle} articleuuid={articleuuid} jwt={jwt} project_uuid={uuid} textareaRef={textareaRef} content={content} setContent={setContent}/>
         </>
     )            
 }
