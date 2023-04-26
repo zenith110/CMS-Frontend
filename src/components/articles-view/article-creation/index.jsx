@@ -1,14 +1,15 @@
 import { gql, useMutation} from '@apollo/client'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
-const ArticleCreation = () => {
+const ArticleCreation = (textareaRef) => {
     const { uuid } = useParams();
     const jwt = sessionStorage.getItem("JWT")
     const navigate = useNavigate();
+    const textareaRef = useRef();
     const [title, setTitleName] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState([]);
@@ -25,6 +26,21 @@ const ArticleCreation = () => {
       }
     `;
     
+    const UploadImage = gql`
+      mutation($uploadArticleImageInput: UploadArticleImageInput){
+        uploadArticleImage(input: $uploadArticleImageInput)
+      }
+    `;
+
+    const [uploadArticleImage] = useMutation(UploadImage, {
+      onCompleted: (data) => {
+          const selectionStart = textareaRef.current.selectionStart;
+          const selectionEnd = textareaRef.current.selectionEnd;
+          let newValue = content.substring(0, selectionStart) + `![](${data.uploadArticleImage})` + content.substring(selectionEnd, content.length);
+          setContent(newValue)
+      }
+    });
+
     /*
     Gets the file, and modifies it to be an ArrayBuffer to be used for uploading to s3
     */
@@ -87,6 +103,29 @@ const ArticleCreation = () => {
             onChange={(event) => setTags(event.target.value.split(","))}
         />
         </label>
+        <br/>
+        <label>Upload images</label>
+        <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={async (e) => {
+          let articleImage = e.target.files[0]
+          let articleImagedata = await arrayBufferCreation(articleImage);
+          let uploadArticleImageInput = {  
+              file: {
+                name: articleImage.name,
+                fileData: new File([articleImagedata], articleImage.name, {
+                  type: articleImage.type
+                }),
+                contentType: articleImage.type
+              },
+              article_uuid: articleuuid,
+              project_uuid: project_uuid,
+              article_name: ArticleData.title
+            }
+            uploadArticleImage({
+            variables: {
+              uploadArticleImageInput
+              }
+            })
+        }} />
         <br/>
         <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content}>
         
