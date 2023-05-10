@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
 import { gql, useMutation } from '@apollo/client'
-const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uuid, textareaRef, content, setContent}) => {
+const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uuid, textareaRef}) => {
     const ArticleData = data.articlePrivate;
     let { contentData } = ArticleData
-
+    let { dateWritten } = ArticleData
     const navigate = useNavigate();
-    const [title, setTitleName] = useState("");
-    const [description, setDescription] = useState("");
-    const [tags, setTags] = useState([]);
-    const [titleCard, setTitleCard] = useState({})
+    const [title, setTitleName] = useState(ArticleData.title);
+    const [description, setDescription] = useState(ArticleData.description);
+    const [tags, setTags] = useState(ArticleData.tags);
+    const [titleCard, setTitleCard] = useState(ArticleData.titleCard)
+    const [content, setContent] = useState(contentData);
     /*
     Gets the file, and modifies it to be an ArrayBuffer to be used for uploading to s3
     */
@@ -110,7 +111,7 @@ const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uui
         <br/>
         <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content} ref={textareaRef}>
         </textarea>
-        <ReactMarkdown children={contentData}/>
+        <ReactMarkdown children={content}/>
         <br/>
         <Button
         style={{ textAlign: "center" }}
@@ -141,7 +142,8 @@ const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uui
                 tags: tagStorage,
                 jwt: jwt,
                 project_uuid: project_uuid,
-                originalfoldername: ArticleData.title
+                originalfoldername: ArticleData.title,
+                dateWritten: dateWritten
               }
             updateArticle({
             variables: {
