@@ -9,7 +9,6 @@ const ArticleCreation = (textareaRef) => {
     const { uuid } = useParams();
     const jwt = sessionStorage.getItem("JWT")
     const navigate = useNavigate();
-    const textareaRef = useRef();
     const [title, setTitleName] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState([]);
