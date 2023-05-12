@@ -20,7 +20,7 @@ const style = {
     p: 4,
     color: "black"
   };
-const ArticlesView = ({}) => {
+const ArticlesView = () => {
     const { uuid } = useParams();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ const ArticlesView = ({}) => {
                     tag
                 }
             }
-            zincPassword
+            ZincPassword
         }
     }
     `

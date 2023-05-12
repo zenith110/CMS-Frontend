@@ -6,6 +6,7 @@ const EditArticle = () => {
     const { articleuuid, uuid } = useParams();
     const textareaRef = useRef();
     const jwt = sessionStorage.getItem("JWT")
+    const [content, setContent] = useState("");
     const fetchArticleQuery = gql`
         query($articleInput: FindArticlePrivateType){
             articlePrivate(input: $articleInput){

@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
-const ArticleCreation = (textareaRef) => {
+const ArticleCreation = () => {
+    const textareaRef = useRef();
     const { uuid } = useParams();
     const jwt = sessionStorage.getItem("JWT")
     const navigate = useNavigate();
@@ -115,9 +116,9 @@ const ArticleCreation = (textareaRef) => {
                 }),
                 contentType: articleImage.type
               },
-              article_uuid: articleuuid,
-              project_uuid: project_uuid,
-              article_name: ArticleData.title
+              article_uuid: uuidv4(),
+              project_uuid: uuid,
+              article_name: title
             }
             uploadArticleImage({
             variables: {
@@ -126,7 +127,7 @@ const ArticleCreation = (textareaRef) => {
             })
         }} />
         <br/>
-        <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content}>
+        <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content} ref={textareaRef}>
         
         </textarea>
         <ReactMarkdown children={content}/>
