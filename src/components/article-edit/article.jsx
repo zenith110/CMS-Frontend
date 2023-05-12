@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
 import { gql, useMutation } from '@apollo/client'
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+
+import LinkRef from '../reusableComponents/LinkRef';
+import Youtube from '../reusableComponents/Youtube';
 const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uuid, textareaRef}) => {
     const ArticleData = data.articlePrivate;
     let { contentData } = ArticleData
@@ -86,8 +90,8 @@ const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uui
         />
         </label>
         <br/>
-        <label>Upload images</label>
-        <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={async (e) => {
+        <label htmlFor="file-upload" className="custom-file-upload"><AddAPhotoIcon/></label>
+        <input type="file" id="file-upload" name="filename" accept=".png, .jpg, .jpeg" onChange={async (e) => {
           let articleImage = e.target.files[0]
           let articleImagedata = await arrayBufferCreation(articleImage);
           let uploadArticleImageInput = {  
@@ -108,6 +112,8 @@ const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uui
               }
             })
         }} />
+        <LinkRef setContent={setContent} textareaRef={textareaRef} content={content}/>
+        <Youtube setContent={setContent} textareaRef={textareaRef} content={content}/>
         <br/>
         <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content} ref={textareaRef}>
         </textarea>

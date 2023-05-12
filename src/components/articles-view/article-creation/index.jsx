@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@mui/material/Button';
 import ReactMarkdown from 'react-markdown'
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+
+import "./index.css"
+import LinkRef from '../../reusableComponents/LinkRef';
+import Youtube from '../../reusableComponents/Youtube';
 const ArticleCreation = () => {
     const textareaRef = useRef();
     const { uuid } = useParams();
@@ -15,6 +20,7 @@ const ArticleCreation = () => {
     const [tags, setTags] = useState([]);
     const [titleCard, setTitleCard] = useState({})
     const [content, setContent] = useState("");
+    
     /*
     Query to add more articles
     */
@@ -90,8 +96,8 @@ const ArticleCreation = () => {
         />
         </label>
         <br/>
-        <label>Title Card </label>
-        <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
+        <label htmlFor="titleCardUpload" className="custom-file-upload">Title Card </label>
+        <input type="file" id="titleCardUpload" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
         <br/>
         <label>
         <input
@@ -104,8 +110,8 @@ const ArticleCreation = () => {
         />
         </label>
         <br/>
-        <label>Upload images</label>
-        <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={async (e) => {
+        <label htmlFor="file-upload" className="custom-file-upload"><AddAPhotoIcon/></label>
+        <input type="file" id="file-upload" name="filename" accept=".png, .jpg, .jpeg" onChange={async (e) => {
           let articleImage = e.target.files[0]
           let articleImagedata = await arrayBufferCreation(articleImage);
           let uploadArticleImageInput = {  
@@ -126,6 +132,8 @@ const ArticleCreation = () => {
               }
             })
         }} />
+        <LinkRef setContent={setContent} textareaRef={textareaRef} content={content}/>
+        <Youtube setContent={setContent} textareaRef={textareaRef} content={content}/>
         <br/>
         <textarea rows="4" cols="50" onChange={(e) => setContent(e.target.value)} value={content} ref={textareaRef}>
         
