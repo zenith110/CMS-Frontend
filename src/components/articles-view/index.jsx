@@ -98,7 +98,7 @@ const ArticlesView = () => {
                     {`Username:${uuid}`}
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {`Password:${data.articlesPrivate.zincPassword}`}
+                    {`Password:${data.articlesPrivate.ZincPassword}`}
                 </Typography>
                 <Button onClick={() => handleClose()}>Close</Button>
                 </Box>
