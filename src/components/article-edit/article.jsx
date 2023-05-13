@@ -76,8 +76,8 @@ const ArticleToBeUpdated = ({ data, updateArticle, articleuuid, jwt, project_uui
         />
         </label>
         <br/>
-        <label>Title Card </label>
-        <input type="file" id="myFile" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
+        <label htmlFor="titleCardUpload" className="custom-file-upload">Title Card </label>
+        <input type="file" id="titleCardUpload" name="filename" accept=".png, .jpg, .jpeg" onChange={e => setTitleCard(e.target.files[0])} />
         <br/>
         <label>
         <input
